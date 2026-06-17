@@ -1,0 +1,1165 @@
+/* =========================================================================
+   Skin Solutions — landing v3 (LIGHT / WHITE-DOMINANT)
+   System projektowy wzorowany na Estetic Point: BIEL dominuje,
+   szampańskie złoto (#D2AC67) = sygnaturowy akcent, grafit = tekst.
+   Tła sekcji naprzemiennie biel <-> kremowy; nieliczne ciemne akcenty
+   (footer grafitowy + jeden końcowy CTA band) dla kontrastu premium.
+   Mobile-first. WCAG AA. prefers-reduced-motion respektowane.
+   ========================================================================= */
+
+:root {
+  /* Paleta v3 — jasna (wg BRIEF) */
+  --ink: #14130F;            /* grafit/czerń — tekst i nieliczne ciemne elementy */
+  --ink-2: #1A1814;          /* drobny grafit na bieli */
+  --black: #000000;
+  --gold: #D2AC67;           /* sygnaturowe złoto */
+  --gold-soft: #E4C98C;
+  --gold-deep: #B79354;      /* ciemniejsze złoto — tekst złoty z lepszym kontrastem */
+  --white: #FFFFFF;
+  --bg: #FFFFFF;             /* dominujące tło — biel */
+  --bg-soft: #F7F4EF;        /* delikatny kremowy oddech */
+  --cream: #F3EEE6;          /* mocniejszy krem */
+  --cream-2: #EFE9DF;        /* krem do gradientów obrazów */
+  --green: #3a5d49;          /* zieleń marki — bardzo drobny detal */
+  --green-deep: #2C4A39;
+
+  /* Tekst */
+  --text: #1A1814;                 /* główny tekst grafit na bieli */
+  --text-muted: #5A554C;           /* pomocniczy tekst grafit-beż na bieli (AA) */
+  --text-on-dark: #F3EEE6;         /* tekst na nielicznych ciemnych elementach */
+  --text-on-dark-muted: #C9C2B4;
+
+  /* Powierzchnie / linie */
+  --surface-dark: #1A1814;         /* footer / końcowy CTA band */
+  --surface-dark-2: #14130F;
+  --line: #E7E0D4;                 /* delikatny złoto-beżowy hairline na bieli */
+  --line-soft: rgba(26, 24, 20, 0.10);
+  --hairline-gold: rgba(210, 172, 103, 0.45);
+  --hairline-gold-strong: rgba(210, 172, 103, 0.85);
+  --hairline-light: rgba(26, 24, 20, 0.12);
+
+  /* Cienie kart na bieli */
+  --shadow-card: 0 14px 36px -22px rgba(26, 24, 20, .35), 0 2px 8px -4px rgba(26, 24, 20, .10);
+  --shadow-card-hover: 0 26px 54px -26px rgba(183, 147, 84, .55), 0 6px 16px -8px rgba(26, 24, 20, .18);
+
+  /* Typografia */
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Jost", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Rozkład */
+  --maxw: 1200px;
+  --maxw-narrow: 820px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --header-h: 76px;
+  --radius: 4px;
+  --radius-lg: 8px;
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+
+  /* OCHRONA anty-kopiowanie (CSS — JS protect() w main.js) */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+::selection { background: transparent; }
+::-moz-selection { background: transparent; }
+
+/* WYJĄTEK: pola formularza muszą być zaznaczalne / edytowalne */
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.12;
+  margin: 0;
+  letter-spacing: .005em;
+  color: var(--ink);
+}
+
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+iframe { display: block; }
+
+/* ---------- A11y helpers ---------- */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 200;
+  background: var(--gold);
+  color: var(--ink);
+  padding: .6rem 1.1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: top .2s var(--ease);
+}
+.skip-link:focus { top: 1rem; }
+
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.container--narrow { max-width: var(--maxw-narrow); }
+
+section { padding-block: clamp(3.5rem, 8vw, 7rem); }
+
+/* Jasne warianty sekcji (zamiast ciemnych). Naprzemienność biel<->krem. */
+.section--dark { background: var(--bg-soft); color: var(--text); }
+.section--green {
+  background: linear-gradient(165deg, var(--cream), var(--bg-soft));
+  color: var(--text);
+}
+
+/* ---------- Eyebrow / nagłówki sekcji ---------- */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: .72rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: .9rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 2.2rem;
+  height: 1px;
+  background: var(--gold);
+  display: inline-block;
+}
+.eyebrow--center { justify-content: center; }
+.eyebrow--center::after {
+  content: "";
+  width: 2.2rem;
+  height: 1px;
+  background: var(--gold);
+  display: inline-block;
+}
+
+.section-head { max-width: 720px; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.section-title {
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  letter-spacing: .01em;
+  color: var(--ink);
+}
+.section--dark .section-title,
+.section--green .section-title { color: var(--ink); }
+
+.section-lead {
+  margin-top: 1rem;
+  font-size: 1.06rem;
+  color: var(--text-muted);
+  max-width: 56ch;
+}
+.section-lead--light { color: var(--text-muted); }
+
+/* =========================================================================
+   Buttons
+   ========================================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 1.05rem 2.1rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: transform .25s var(--ease), background .25s var(--ease),
+              color .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+  will-change: transform;
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* Złoto wypełnione + ciemny grafit (wysoki kontrast na złotym tle) */
+.btn--gold {
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: var(--ink);
+  box-shadow: 0 10px 26px -14px rgba(183, 147, 84, .85);
+}
+.btn--gold:hover {
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  color: var(--ink);
+  box-shadow: 0 16px 34px -14px rgba(183, 147, 84, .95);
+}
+
+/* Ghost na jasnym tle: grafitowy tekst + złota ramka (AA) */
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--gold-deep);
+}
+.btn--ghost:hover {
+  background: rgba(210, 172, 103, .14);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+/* Ghost na ciemnym akcencie (CTA band) — jasny tekst */
+.section--dark.cta-band .btn--ghost,
+.cta-band .btn--ghost {
+  color: var(--white);
+  border-color: var(--gold);
+}
+.cta-band .btn--ghost:hover {
+  background: rgba(210, 172, 103, .18);
+  color: var(--white);
+}
+
+.btn--sm { padding: .8rem 1.5rem; font-size: .74rem; }
+.btn--block { width: 100%; }
+
+/* =========================================================================
+   1. Header (jasny, sticky)
+   ========================================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: background .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 24px -18px rgba(26, 24, 20, .35);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+}
+
+.brand { display: inline-flex; align-items: center; gap: .65rem; color: var(--ink); }
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-deep);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.brand__name {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+
+/* Nav */
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.9rem);
+}
+.nav__list a {
+  font-size: .82rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: color .2s var(--ease);
+  position: relative;
+}
+.nav__list a:hover { color: var(--gold-deep); }
+.nav__cta a { color: var(--ink); }
+
+.nav__toggle {
+  display: none;
+  background: none;
+  border: 0;
+  width: 44px; height: 44px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
+}
+.nav__toggle-bar {
+  display: block;
+  width: 26px; height: 2px;
+  background: var(--ink);
+  margin-inline: auto;
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+.js-nav-toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.js-nav-toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) { opacity: 0; }
+.js-nav-toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* =========================================================================
+   2. Hero (jasny — zdjęcie rozjaśnione białym overlayem, tekst grafit)
+   ========================================================================= */
+.hero {
+  position: relative;
+  min-height: min(94vh, 880px);
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  overflow: hidden;
+  padding-block: clamp(5rem, 12vh, 9rem);
+}
+.hero__media { position: absolute; inset: 0; z-index: 0; background: linear-gradient(140deg, var(--cream), var(--bg-soft)); }
+/* zdjęcie hero rozjaśnione, by grafitowy tekst był czytelny */
+.hero__media img { width: 100%; height: 100%; object-fit: cover; opacity: .9; filter: brightness(1.12) saturate(.95); }
+.hero__overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,.55), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.78) 0%, rgba(255,255,255,.62) 42%, rgba(247,244,239,.92) 100%);
+}
+.hero__inner { position: relative; z-index: 2; text-align: center; color: var(--ink); }
+
+.hero__title {
+  font-size: clamp(2.8rem, 9vw, 6rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: .01em;
+  margin: .2rem auto .4rem;
+  max-width: 16ch;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.hero__title em { font-style: italic; color: var(--gold-deep); }
+
+.hero__lead {
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: 1.12rem;
+  color: var(--text-muted);
+}
+
+.hero__actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.hero__stats {
+  margin-top: clamp(2.6rem, 6vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.hero__stat {
+  background: rgba(255, 255, 255, .9);
+  padding: 1.6rem 1rem;
+  text-align: center;
+}
+.hero__stat-num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 600;
+  color: var(--gold-deep);
+  line-height: 1;
+}
+.hero__stat-num--text { font-size: clamp(1.4rem, 3.5vw, 2rem); font-style: italic; }
+.hero__stat-plus { font-size: .7em; vertical-align: super; }
+.hero__stat-label {
+  display: block;
+  margin-top: .55rem;
+  font-size: .76rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%; bottom: 1.6rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 26px; height: 42px;
+  border: 1px solid var(--gold-deep);
+  border-radius: 14px;
+}
+.hero__scroll span {
+  position: absolute;
+  left: 50%; top: 8px;
+  transform: translateX(-50%);
+  width: 3px; height: 8px;
+  background: var(--gold-deep);
+  border-radius: 2px;
+  animation: scrollDot 1.8s var(--ease) infinite;
+}
+@keyframes scrollDot { 0%{opacity:0;transform:translate(-50%,0);} 40%{opacity:1;} 100%{opacity:0;transform:translate(-50%,12px);} }
+
+/* =========================================================================
+   3. Pasek korzyści (jasny krem)
+   ========================================================================= */
+.benefits { background: var(--cream); color: var(--text); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+.benefits__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+.benefit { text-align: center; padding: 1rem .5rem; }
+.benefit__icon {
+  display: grid;
+  place-items: center;
+  width: 56px; height: 56px;
+  margin: 0 auto 1rem;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-deep);
+  background: var(--white);
+}
+.benefit__icon svg { width: 26px; height: 26px; }
+.benefit__title { font-size: 1.3rem; color: var(--ink); margin-bottom: .4rem; }
+.benefit__text { font-size: .95rem; color: var(--text-muted); max-width: 30ch; margin-inline: auto; }
+
+/* =========================================================================
+   4. Oferta (jasne karty na bieli + złoty akcent na hover)
+   ========================================================================= */
+.offer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+.offer-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 2.2rem 1.8rem 2rem;
+  box-shadow: var(--shadow-card);
+  transition: transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+}
+.offer-card::before {
+  content: "";
+  position: absolute; left: 0; top: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity .35s var(--ease);
+}
+.offer-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-card-hover);
+}
+.offer-card:hover::before { opacity: 1; }
+.offer-card__icon {
+  display: grid; place-items: center;
+  width: 52px; height: 52px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-deep);
+  background: var(--bg-soft);
+  margin-bottom: 1.2rem;
+}
+.offer-card__icon svg { width: 26px; height: 26px; }
+.offer-card__title { font-size: 1.5rem; color: var(--ink); margin-bottom: .7rem; }
+.offer-card__text { font-size: .95rem; color: var(--text-muted); }
+.offer-card__price {
+  margin-top: 1.2rem;
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-style: italic;
+  color: var(--gold-deep);
+}
+/* Karta-CTA: ciepły krem + złota ramka (pozostaje jasna) */
+.offer-card--cta {
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1rem;
+  background: linear-gradient(155deg, var(--cream), var(--bg-soft));
+  border-color: var(--gold);
+}
+.offer-card--cta .offer-card__title { color: var(--ink); }
+.offer-card--cta .offer-card__text { color: var(--text-muted); }
+
+/* =========================================================================
+   5. Timeline wizyty (biel; złota linia łącząca)
+   ========================================================================= */
+.visit { background: var(--bg); }
+.timeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  counter-reset: step;
+}
+.timeline__step {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.8rem 2rem 2rem;
+  box-shadow: var(--shadow-card);
+}
+.timeline__num {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--gold-deep);
+  line-height: 1;
+  display: block;
+  margin-bottom: .6rem;
+}
+.timeline__title { font-size: 1.4rem; color: var(--ink); margin-bottom: .5rem; }
+.timeline__text { font-size: .98rem; color: var(--text-muted); }
+
+/* =========================================================================
+   6. Co nas wyróżnia + licznik (jasny krem)
+   ========================================================================= */
+.distinct__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+.distinct__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--cream), var(--cream-2) 70%);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  aspect-ratio: 4 / 3;
+}
+.distinct__media img { width: 100%; height: 100%; object-fit: cover; }
+.distinct__quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  color: var(--gold-deep);
+  line-height: 1.4;
+  margin: 1rem 0 1.2rem;
+}
+.distinct__text { color: var(--text-muted); font-size: 1rem; }
+
+.counter-block {
+  margin-top: 2rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .3rem 1rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+.counter, .counter-block__plus {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 9vw, 4.6rem);
+  font-weight: 700;
+  color: var(--gold-deep);
+  line-height: 1;
+}
+.counter-block__label {
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  max-width: 22ch;
+}
+
+/* =========================================================================
+   7. Technologie (biel; jasne kafelki)
+   ========================================================================= */
+.tech { background: var(--bg); color: var(--text); }
+.tech .section-lead { color: var(--text-muted); }
+.tech__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.tech__item {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.4rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.tech__item:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: var(--shadow-card-hover); }
+.tech__name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--ink);
+}
+.tech__desc {
+  display: block;
+  margin-top: .4rem;
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+/* =========================================================================
+   8. Cytat założycielki (jasny krem, kameralny)
+   ========================================================================= */
+.founder__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+.founder__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--cream), var(--cream-2) 70%);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  aspect-ratio: 3 / 4;
+  max-width: 380px;
+}
+.founder__media img { width: 100%; height: 100%; object-fit: cover; }
+.founder__quote { position: relative; }
+.founder__mark {
+  font-family: var(--font-serif);
+  font-size: 6rem;
+  color: var(--gold);
+  line-height: .6;
+  display: block;
+  opacity: .7;
+}
+.founder__text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.32;
+  color: var(--ink);
+  margin: .5rem 0 1.2rem;
+}
+.founder__sub { color: var(--text-muted); font-size: 1.02rem; }
+.founder__name { margin-top: 1.4rem; }
+.founder__name-main {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--gold-deep);
+}
+.founder__name-role {
+  display: block;
+  font-size: .76rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: .2rem;
+}
+.founder__team {
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-size: .95rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+.founder__team strong { color: var(--gold-deep); font-style: normal; font-weight: 600; }
+
+/* =========================================================================
+   9. Cennik (biel; jasne karty)
+   ========================================================================= */
+.pricing { background: var(--bg-soft); }
+.pricing__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+.price-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 1.6rem;
+  box-shadow: var(--shadow-card);
+}
+.price-card__title {
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid var(--line);
+}
+.price-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .5rem 0;
+  font-size: .96rem;
+  color: var(--text);
+  border-bottom: 1px dashed var(--line-soft);
+}
+.price-list li:last-child { border-bottom: 0; }
+.price-list__val {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--gold-deep);
+  white-space: nowrap;
+  font-weight: 600;
+}
+.price-card__note { margin-top: 1rem; font-size: .85rem; color: var(--text-muted); font-style: italic; }
+/* Karta-CTA cennika: ciepły krem (pozostaje jasna) */
+.price-card--cta {
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1rem;
+  background: linear-gradient(155deg, var(--cream), var(--bg-soft));
+  border-color: var(--gold);
+}
+.price-card--cta .price-card__title { color: var(--ink); border-color: var(--line); }
+.price-card--cta .price-card__note { color: var(--text-muted); }
+.pricing__disclaimer {
+  margin-top: 1.8rem;
+  font-size: .82rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* =========================================================================
+   10. Opinie (jasny krem; karty białe; gwiazdki złote)
+   ========================================================================= */
+.reviews__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+.review {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 1.6rem;
+  margin: 0;
+  box-shadow: var(--shadow-card);
+}
+.review__stars { color: var(--gold); font-size: 1.1rem; letter-spacing: .15em; margin-bottom: .9rem; }
+.review__text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 1rem;
+}
+.review__author {
+  font-size: .76rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.reviews__badge { text-align: center; margin-top: 2rem; }
+.reviews__badge a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+  font-size: .9rem;
+  letter-spacing: .08em;
+  transition: color .2s var(--ease);
+}
+.reviews__badge a:hover { color: var(--gold-deep); }
+
+/* =========================================================================
+   11. Instagram (biel)
+   ========================================================================= */
+.insta { background: var(--bg); }
+.insta__handle { color: var(--gold-deep); border-bottom: 1px solid var(--gold); }
+.insta__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .8rem;
+}
+.insta__tile {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(150deg, var(--cream), var(--cream-2) 70%);
+  border: 1px solid var(--line);
+}
+.insta__tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease), opacity .3s var(--ease); }
+.insta__tile::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(210,172,103,.22));
+  opacity: 0; transition: opacity .3s var(--ease);
+}
+.insta__tile:hover img { transform: scale(1.06); }
+.insta__tile:hover::after { opacity: 1; }
+
+/* =========================================================================
+   12. FAQ akordeon (jasny krem; karty białe; złoty +/-)
+   ========================================================================= */
+.faq__list {
+  border-top: 1px solid var(--line);
+}
+.faq__item { border-bottom: 1px solid var(--line); }
+.faq__q-wrap { margin: 0; font-family: var(--font-sans); font-weight: 400; }
+.faq__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: none;
+  border: 0;
+  padding: 1.5rem 0;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  color: var(--ink);
+  transition: color .25s var(--ease);
+}
+.faq__q:hover { color: var(--gold-deep); }
+.faq__icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 22px; height: 22px;
+}
+.faq__icon::before, .faq__icon::after {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  background: var(--gold-deep);
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+.faq__icon::before { width: 16px; height: 2px; transform: translate(-50%, -50%); }
+.faq__icon::after  { width: 2px; height: 16px; transform: translate(-50%, -50%); }
+.faq__item.is-open .faq__icon::after { transform: translate(-50%, -50%) scaleY(0); opacity: 0; }
+
+.faq__a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .35s var(--ease);
+}
+.faq__item.is-open .faq__a { max-height: 320px; }
+.faq__a p {
+  padding: 0 0 1.5rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 62ch;
+}
+
+/* =========================================================================
+   13. Kontakt (biel; formularz jasny)
+   ========================================================================= */
+.contact { background: var(--bg-soft); color: var(--text); }
+.contact .section-title { color: var(--ink); }
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+.contact__list { margin: 1.5rem 0 2rem; display: grid; gap: 1.3rem; }
+.contact__label {
+  display: block;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: .25rem;
+}
+.contact__val { font-size: 1.02rem; color: var(--text); }
+.contact__val a { color: var(--text); transition: color .2s var(--ease); }
+.contact__val a:hover { color: var(--gold-deep); }
+.contact__map {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+}
+
+.contact__form-wrap {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+  box-shadow: var(--shadow-card);
+}
+.contact__form-title { font-size: 1.7rem; color: var(--ink); }
+.contact__form-lead { margin: .5rem 0 1.5rem; color: var(--text-muted); font-size: .95rem; }
+
+.field { margin-bottom: 1.1rem; }
+.field label {
+  display: block;
+  font-size: .76rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: .45rem;
+}
+.field input, .field textarea {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: .85rem 1rem;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
+}
+.field input:focus, .field textarea:focus {
+  outline: none;
+  background: var(--white);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(210,172,103,.22);
+}
+.field textarea { resize: vertical; min-height: 110px; }
+
+.field--check {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+}
+.field--check input { width: auto; margin-top: .25rem; accent-color: var(--gold-deep); }
+.field--check label {
+  margin: 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: .88rem;
+  color: var(--text-muted);
+}
+.contact__form-alt { margin-top: 1.2rem; font-size: .9rem; color: var(--text-muted); text-align: center; }
+.contact__form-alt a { color: var(--gold-deep); border-bottom: 1px solid var(--gold); }
+
+/* =========================================================================
+   14. CTA band — DOZWOLONY CIEMNY AKCENT (kontrast premium)
+   ========================================================================= */
+.cta-band {
+  position: relative;
+  text-align: center;
+  color: var(--text-on-dark);
+  background:
+    radial-gradient(100% 120% at 50% 0%, rgba(210,172,103,.22), transparent 60%),
+    var(--surface-dark);
+}
+/* nadpisz jasny wariant section--dark dla TEGO konkretnego bandu */
+.cta-band.section--dark { background:
+    radial-gradient(100% 120% at 50% 0%, rgba(210,172,103,.22), transparent 60%),
+    var(--surface-dark); color: var(--text-on-dark); }
+.cta-band .eyebrow { color: var(--gold-soft); }
+.cta-band__inner { max-width: 760px; margin-inline: auto; }
+.cta-band__title {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  color: var(--white);
+  margin: .3rem 0 .9rem;
+  text-wrap: balance;
+}
+.cta-band.section--dark .section-title,
+.cta-band__title { color: var(--white); }
+.cta-band__lead { color: var(--text-on-dark-muted); font-size: 1.1rem; max-width: 50ch; margin: 0 auto 2rem; }
+.cta-band__actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+/* =========================================================================
+   15. Footer — DOZWOLONY CIEMNY AKCENT (grafit)
+   ========================================================================= */
+.site-footer { background: var(--surface-dark); color: var(--text-on-dark-muted); padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
+.site-footer .brand,
+.site-footer .brand__name { color: var(--white); }
+.site-footer .brand__mark { color: var(--gold); }
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.2rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--hairline-gold);
+}
+.brand--footer .brand__name { font-size: 1.5rem; }
+.site-footer__tagline { margin-top: 1rem; font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold-soft); }
+.site-footer__note { margin-top: .6rem; font-size: .9rem; }
+.site-footer__head {
+  font-family: var(--font-sans);
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.site-footer__links { display: grid; gap: .6rem; font-size: .92rem; }
+.site-footer__links a:hover { color: var(--gold-soft); }
+.site-footer__legal { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid rgba(210,172,103,.22); }
+
+.site-footer__bottom { padding-top: 1.8rem; text-align: center; display: grid; gap: .4rem; }
+.site-footer__copy { font-size: .85rem; }
+.site-footer__pfl { font-size: .85rem; color: var(--text-on-dark-muted); }
+.site-footer__pfl a { color: var(--gold); border-bottom: 1px solid transparent; transition: border-color .2s var(--ease); }
+.site-footer__pfl a:hover { border-bottom-color: var(--gold); }
+.site-footer__stock { font-size: .76rem; color: #9A9486; font-style: italic; margin-top: .4rem; }
+
+/* =========================================================================
+   Sticky mobile CTA
+   ========================================================================= */
+.mobile-cta {
+  position: fixed;
+  left: 1rem; right: 1rem; bottom: 1rem;
+  z-index: 90;
+  display: none;             /* domyślnie ukryty; JS dodaje .is-visible po przewinięciu hero */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: var(--ink);
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: 0 14px 34px -10px rgba(26,24,20,.35);
+  transform: translateY(160%);
+  transition: transform .35s var(--ease);
+}
+.mobile-cta.is-visible { transform: translateY(0); }
+
+/* Blokada scrolla tła przy otwartym menu mobilnym (JS dodaje .nav-open na body) */
+body.nav-open { overflow: hidden; }
+
+/* =========================================================================
+   Reveal animations
+   ========================================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
+@media (min-width: 600px) {
+  .benefits__grid { grid-template-columns: repeat(2, 1fr); }
+  .tech__grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews__grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing__grid { grid-template-columns: repeat(2, 1fr); }
+  .offer__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .benefits__grid { grid-template-columns: repeat(4, 1fr); }
+  .offer__grid { grid-template-columns: repeat(3, 1fr); }
+  .timeline { grid-template-columns: repeat(3, 1fr); }
+  .tech__grid { grid-template-columns: repeat(5, 1fr); }
+  .reviews__grid { grid-template-columns: repeat(3, 1fr); }
+  .pricing__grid { grid-template-columns: repeat(3, 1fr); }
+  .insta__grid { grid-template-columns: repeat(4, 1fr); }
+  .hero__stats { grid-template-columns: repeat(4, 1fr); }
+
+  .distinct__inner { grid-template-columns: 1.05fr 1fr; }
+  .founder__inner { grid-template-columns: .8fr 1.2fr; }
+  .contact__inner { grid-template-columns: 1.1fr .9fr; }
+
+  /* Timeline – złota linia łącząca kroki */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8%; right: 8%; top: 2.3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+    z-index: 0;
+  }
+  .timeline__step { border-left: 1px solid var(--line); border-top: 3px solid var(--gold); }
+}
+
+/* Hamburger / mobile nav */
+@media (max-width: 899px) {
+  .nav__toggle { display: flex; }
+  .nav__list {
+    position: fixed;
+    inset: var(--header-h) 0 0 auto;
+    width: min(80vw, 340px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--white);
+    border-left: 1px solid var(--line);
+    padding: 1.5rem var(--gutter) 2.5rem;
+    transform: translateX(100%);
+    transition: transform .35s var(--ease);
+    overflow-y: auto;
+    box-shadow: -20px 0 50px -20px rgba(26,24,20,.28);
+  }
+  .nav__list.is-open { transform: translateX(0); }
+  .nav__list li { width: 100%; border-bottom: 1px solid var(--line); }
+  .nav__list li:last-child { border-bottom: 0; }
+  .nav__list a { display: block; width: 100%; padding: 1rem 0; font-size: .9rem; }
+  .nav__cta { margin-top: 1.2rem; }
+  .nav__cta a { padding: .9rem 1.4rem; }
+}
+
+@media (min-width: 720px) {
+  .mobile-cta { display: none !important; }  /* sticky CTA tylko na mobile */
+}
+@media (max-width: 719px) {
+  .mobile-cta { display: flex; }
+}
+
+/* =========================================================================
+   Reduced motion — pokaż wszystko od razu, wyłącz animacje
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .hero__scroll span { animation: none; }
+}
