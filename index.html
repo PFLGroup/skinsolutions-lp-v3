@@ -29,20 +29,20 @@
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1200&q=80&auto=format&fit=crop" />
 
   <!-- Favicon (inline SVG — luxe: złota kropla na jasnym tle) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23F7F4EF'/%3E%3Crect%20x='0.5'%20y='0.5'%20width='31'%20height='31'%20rx='5.5'%20fill='none'%20stroke='%23D2AC67'/%3E%3Cpath%20d='M16%206c4%205%207%208%207%2012a7%207%200%201%201-14%200c0-4%203-7%207-12Z'%20fill='%23D2AC67'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23F7F5F1'/%3E%3Crect%20x='0.5'%20y='0.5'%20width='31'%20height='31'%20rx='5.5'%20fill='none'%20stroke='%23D2AC67'/%3E%3Cpath%20d='M16%206c4%205%207%208%207%2012a7%207%200%201%201-14%200c0-4%203-7%207-12Z'%20fill='%23D2AC67'/%3E%3C/svg%3E" />
 
-  <!-- Fonts: serif display (Cormorant Garamond) + light sans (Jost) -->
+  <!-- Fonts: nagłówki = Roboto Slab (slab-serif), tekst/UI = Libre Franklin (grotesk-sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
 
   <!-- LCP preload: obraz hero (Unsplash CDN). responsywny przez imagesrcset/imagesizes -->
   <link rel="preload" as="image"
-        href="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80&auto=format&fit=crop"
-        imagesrcset="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1000&q=80&auto=format&fit=crop 1000w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80&auto=format&fit=crop 1600w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=2000&q=80&auto=format&fit=crop 2000w"
-        imagesizes="100vw"
+        href="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1000&q=80&auto=format&fit=crop"
+        imagesrcset="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=80&auto=format&fit=crop 700w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1000&q=80&auto=format&fit=crop 1000w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1400&q=80&auto=format&fit=crop 1400w"
+        imagesizes="(min-width: 960px) 44vw, 100vw"
         fetchpriority="high" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
@@ -79,9 +79,11 @@
 </head>
 
 <!--
-  Skin Solutions — landing v2 (LUXE: czerń + szampańskie złoto + biel, zieleń marki jako akcent).
+  Skin Solutions — landing v3 (BIEL-DOMINUJĄCA, w stylu wzoru Estetic Point).
+  Typografia: Roboto Slab (nagłówki) + Libre Franklin (tekst/UI). Złoto = akcent.
+  Komponent sygnaturowy: ICON-BOX (ikona liniowa złota + nagłówek + tekst).
   UWAGA: zdjęcia poglądowe (stock, Unsplash CDN) — do podmiany na realne fotografie kliniki.
-  Treść wyłącznie z _brief/CONTENT.md. JS (interakcje + protect()) dodaje kolejny agent (assets/js/main.js).
+  Treść wyłącznie z _brief/CONTENT.md. JS (interakcje + protect()) = assets/js/main.js (NIETKNIĘTY).
 -->
 <body>
   <a class="skip-link" href="#main">Przejdź do treści</a>
@@ -119,77 +121,85 @@
 
   <main id="main">
 
-    <!-- ============ 2. HERO (dramatyczny + rząd odznak-statów) ============ -->
+    <!-- ============ 2. HERO (jasny, split: slogan + staty + zdjęcie) ============ -->
     <section class="hero" id="hero" aria-labelledby="hero-title">
-      <div class="hero__media">
-        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80&auto=format&fit=crop"
-             srcset="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1000&q=80&auto=format&fit=crop 1000w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80&auto=format&fit=crop 1600w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=2000&q=80&auto=format&fit=crop 2000w"
-             sizes="100vw" width="1600" height="1067"
-             alt="Eleganckie, ciemne wnętrze luksusowej kliniki kosmetologii" loading="eager" fetchpriority="high" decoding="async" />
-      </div>
-      <div class="hero__overlay" aria-hidden="true"></div>
       <div class="container hero__inner">
-        <p class="eyebrow eyebrow--center">Klinika kosmetologii i medycyny estetycznej · Mokotów</p>
-        <h1 id="hero-title" class="hero__title">Tworzymy rozwiązania<br /><em>dla Twojej skóry</em></h1>
-        <p class="hero__lead">Luksusowe miejsce stworzone z myślą o Tobie — autorskie terapie łączone, topowe technologie i holistyczne, indywidualne podejście zespołu specjalistów.</p>
+        <div class="hero__content">
+          <p class="eyebrow">Klinika kosmetologii i medycyny estetycznej · Mokotów</p>
+          <h1 id="hero-title" class="hero__title">Tworzymy rozwiązania <span class="hero__title-accent">dla Twojej skóry</span></h1>
+          <p class="hero__lead">Wyjątkowe miejsce stworzone z myślą o Tobie — autorskie terapie łączone, topowe technologie i holistyczne, indywidualne podejście zespołu specjalistów.</p>
 
-        <div class="hero__actions">
-          <a class="btn btn--gold" href="https://booksy.com/pl-pl/186580_skin-solutions_salon-kosmetyczny_3_warszawa" target="_blank" rel="noopener">Umów wizytę On-line</a>
-          <a class="btn btn--ghost" href="#oferta">Poznaj zabiegi</a>
+          <div class="hero__actions">
+            <a class="btn btn--gold" href="https://booksy.com/pl-pl/186580_skin-solutions_salon-kosmetyczny_3_warszawa" target="_blank" rel="noopener">Umów wizytę On-line</a>
+            <a class="btn btn--ghost" href="#oferta">Poznaj zabiegi</a>
+          </div>
+
+          <ul class="hero__stats" aria-label="Co nas wyróżnia">
+            <li class="hero__stat">
+              <span class="hero__stat-num">1000<span class="hero__stat-plus">+</span></span>
+              <span class="hero__stat-label">zadowolonych klientek</span>
+            </li>
+            <li class="hero__stat">
+              <span class="hero__stat-num hero__stat-num--text">Autorskie</span>
+              <span class="hero__stat-label">terapie łączone</span>
+            </li>
+            <li class="hero__stat">
+              <span class="hero__stat-num hero__stat-num--text">Holistyczne</span>
+              <span class="hero__stat-label">indywidualne podejście</span>
+            </li>
+            <li class="hero__stat">
+              <span class="hero__stat-num hero__stat-num--text">Topowe</span>
+              <span class="hero__stat-label">technologie i kosmetyki</span>
+            </li>
+          </ul>
         </div>
 
-        <ul class="hero__stats" aria-label="Co nas wyróżnia">
-          <li class="hero__stat">
-            <span class="hero__stat-num">1000<span class="hero__stat-plus">+</span></span>
-            <span class="hero__stat-label">zadowolonych klientek</span>
-          </li>
-          <li class="hero__stat">
-            <span class="hero__stat-num hero__stat-num--text">Autorskie</span>
-            <span class="hero__stat-label">terapie łączone</span>
-          </li>
-          <li class="hero__stat">
-            <span class="hero__stat-num hero__stat-num--text">Holistyczne</span>
-            <span class="hero__stat-label">indywidualne podejście</span>
-          </li>
-          <li class="hero__stat">
-            <span class="hero__stat-num hero__stat-num--text">Topowe</span>
-            <span class="hero__stat-label">technologie i kosmetyki</span>
-          </li>
-        </ul>
+        <div class="hero__media">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=80&auto=format&fit=crop"
+               srcset="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=80&auto=format&fit=crop 700w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1000&q=80&auto=format&fit=crop 1000w, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1400&q=80&auto=format&fit=crop 1400w"
+               sizes="(min-width: 960px) 44vw, 100vw" width="1200" height="1400"
+               alt="Jasne, eleganckie wnętrze kliniki kosmetologii Skin Solutions" loading="eager" fetchpriority="high" decoding="async" />
+          <span class="hero__media-badge" aria-hidden="true">
+            <span class="hero__media-badge-num">1000<span>+</span></span>
+            <span class="hero__media-badge-label">zaufanych klientek</span>
+          </span>
+        </div>
       </div>
       <a class="hero__scroll" href="#korzysci" aria-label="Przewiń niżej"><span aria-hidden="true"></span></a>
     </section>
 
-    <!-- ============ 3. PASEK KORZYŚCI (4 kafelki) ============ -->
+    <!-- ============ 3. PASEK KORZYŚCI — ICON-BOXY (4) ============ -->
     <section class="benefits" id="korzysci" aria-label="Nasze korzyści">
-      <div class="container benefits__grid">
-        <div class="benefit" data-reveal>
-          <span class="benefit__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c3 4 6 6 6 10a6 6 0 1 1-12 0c0-4 3-6 6-10Z"/><path d="M9 14a3 3 0 0 0 3 3"/></svg>
-          </span>
-          <h3 class="benefit__title">Naturalna odnowa skóry</h3>
-          <p class="benefit__text">Pielęgnujemy zdrowie i kondycję skóry, nie tylko jej wygląd zewnętrzny.</p>
-        </div>
-        <div class="benefit" data-reveal>
-          <span class="benefit__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="14" r="3"/></svg>
-          </span>
-          <h3 class="benefit__title">Indywidualny plan terapii</h3>
-          <p class="benefit__text">Plan gabinetowy i pielęgnacja domowa dobierane do Twoich potrzeb.</p>
-        </div>
-        <div class="benefit" data-reveal>
-          <span class="benefit__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12l2 2 4-4"/></svg>
-          </span>
-          <h3 class="benefit__title">Topowe sprzęty i kosmetyki</h3>
-          <p class="benefit__text">Pracujemy na sprawdzonych, renomowanych technologiach i preparatach.</p>
-        </div>
-        <div class="benefit" data-reveal>
-          <span class="benefit__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
-          </span>
-          <h3 class="benefit__title">Doświadczony, szkolący się zespół</h3>
-          <p class="benefit__text">Specjaliści, którzy nieustannie się rozwijają — i dla których jesteś priorytetem.</p>
+      <div class="container">
+        <div class="icon-grid icon-grid--4">
+          <div class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 6 6 10a6 6 0 1 1-12 0c0-4 3-6 6-10Z"/><path d="M9 14a3 3 0 0 0 3 3"/></svg>
+            </span>
+            <h3 class="icon-box__title">Naturalna odnowa skóry</h3>
+            <p class="icon-box__text">Pielęgnujemy zdrowie i kondycję skóry, nie tylko jej wygląd zewnętrzny.</p>
+          </div>
+          <div class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="14" r="3"/></svg>
+            </span>
+            <h3 class="icon-box__title">Indywidualny plan terapii</h3>
+            <p class="icon-box__text">Plan gabinetowy i pielęgnacja domowa dobierane do Twoich potrzeb.</p>
+          </div>
+          <div class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <h3 class="icon-box__title">Topowe sprzęty i kosmetyki</h3>
+            <p class="icon-box__text">Pracujemy na sprawdzonych, renomowanych technologiach i preparatach.</p>
+          </div>
+          <div class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
+            </span>
+            <h3 class="icon-box__title">Doświadczony, szkolący się zespół</h3>
+            <p class="icon-box__text">Specjaliści, którzy nieustannie się rozwijają — i dla których jesteś priorytetem.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -269,17 +279,26 @@
 
         <ol class="timeline">
           <li class="timeline__step" data-reveal>
-            <span class="timeline__num">01</span>
+            <span class="timeline__num" aria-hidden="true">01</span>
+            <span class="timeline__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </span>
             <h3 class="timeline__title">Konsultacja i diagnostyka skóry</h3>
             <p class="timeline__text">Poznajemy Twoje potrzeby i analizujemy kondycję skóry. Holistycznie szukamy przyczyny, nie tylko objawu.</p>
           </li>
           <li class="timeline__step" data-reveal>
-            <span class="timeline__num">02</span>
+            <span class="timeline__num" aria-hidden="true">02</span>
+            <span class="timeline__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11M4 12h7M4 17h9"/><path d="m16 14 2 2 4-4"/></svg>
+            </span>
             <h3 class="timeline__title">Spersonalizowany plan i zabieg</h3>
             <p class="timeline__text">Dobieramy autorską terapię łączoną oraz technologie dopasowane do Ciebie i przeprowadzamy zabieg.</p>
           </li>
           <li class="timeline__step" data-reveal>
-            <span class="timeline__num">03</span>
+            <span class="timeline__num" aria-hidden="true">03</span>
+            <span class="timeline__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+            </span>
             <h3 class="timeline__title">Pielęgnacja domowa i zalecenia</h3>
             <p class="timeline__text">Otrzymujesz indywidualne zalecenia i plan pielęgnacji domowej, który utrwala efekty terapii.</p>
           </li>
@@ -302,6 +321,36 @@
           <p class="distinct__quote">„Niezwykle dumna z naszych autorskich terapii łączonych, które odnoszą sukcesy na skórach podopiecznych.”</p>
           <p class="distinct__text">Łączymy doświadczenie zespołu, holistyczne podejście i topowe technologie w sygnaturowe protokoły kliniki. Każdy plan tworzymy indywidualnie — z myślą o Twoim samopoczuciu, pewności siebie i poczuciu własnej wartości.</p>
 
+          <ul class="icon-list" aria-label="Co nas wyróżnia">
+            <li class="icon-box icon-box--inline">
+              <span class="icon-box__icon icon-box__icon--sm" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 4.5 3.4 7.7 8 9 4.6-1.3 8-4.5 8-9V7Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <div>
+                <h3 class="icon-box__title icon-box__title--sm">Autorskie protokoły</h3>
+                <p class="icon-box__text">Sygnaturowe terapie łączone kliniki — z udokumentowanymi efektami.</p>
+              </div>
+            </li>
+            <li class="icon-box icon-box--inline">
+              <span class="icon-box__icon icon-box__icon--sm" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18M3 12h18"/></svg>
+              </span>
+              <div>
+                <h3 class="icon-box__title icon-box__title--sm">Podejście holistyczne</h3>
+                <p class="icon-box__text">Szukamy przyczyny problemu skóry głębiej — w całym organizmie.</p>
+              </div>
+            </li>
+            <li class="icon-box icon-box--inline">
+              <span class="icon-box__icon icon-box__icon--sm" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18.2 8 12.7 4 8.8 9.5 8Z"/></svg>
+              </span>
+              <div>
+                <h3 class="icon-box__title icon-box__title--sm">Stale szkolący się zespół</h3>
+                <p class="icon-box__text">Specjaliści, dla których to Ty jesteś priorytetem.</p>
+              </div>
+            </li>
+          </ul>
+
           <div class="counter-block">
             <span class="counter" data-target="1000">0</span><span class="counter-block__plus">+</span>
             <span class="counter-block__label">zadowolonych klientek nam zaufało</span>
@@ -319,12 +368,42 @@
           <p class="section-lead">Pracujemy na renomowanych urządzeniach, które realnie wspierają efekty terapii.</p>
         </header>
 
-        <ul class="tech__grid">
-          <li class="tech__item" data-reveal><span class="tech__name">Dermapen 4.0</span><span class="tech__desc">Mikronakłuwanie skóry</span></li>
-          <li class="tech__item" data-reveal><span class="tech__name">Secret RF 2.0</span><span class="tech__desc">Mikroigłowa radiofrekwencja</span></li>
-          <li class="tech__item" data-reveal><span class="tech__name">Venus Legacy</span><span class="tech__desc">Modelowanie i lifting</span></li>
-          <li class="tech__item" data-reveal><span class="tech__name">ICOONE Laser</span><span class="tech__desc">Endermologia</span></li>
-          <li class="tech__item" data-reveal><span class="tech__name">Platforma laserowa ZYE</span><span class="tech__desc">Laser aleksandrytowy i IPL</span></li>
+        <ul class="icon-grid icon-grid--tech">
+          <li class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3 4 13l3 3 1.5-1.5"/><path d="m14 3 7 7-9 9-4 1 1-4Z"/></svg>
+            </span>
+            <h3 class="icon-box__title">Dermapen 4.0</h3>
+            <p class="icon-box__text">Mikronakłuwanie skóry</p>
+          </li>
+          <li class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-6 4 14 3-9 2 4h4"/></svg>
+            </span>
+            <h3 class="icon-box__title">Secret RF 2.0</h3>
+            <p class="icon-box__text">Mikroigłowa radiofrekwencja</p>
+          </li>
+          <li class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 12 6 12s6-8 6-12a6 6 0 0 0-6-6Z"/><circle cx="12" cy="9" r="2"/></svg>
+            </span>
+            <h3 class="icon-box__title">Venus Legacy</h3>
+            <p class="icon-box__text">Modelowanie i lifting</p>
+          </li>
+          <li class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+            </span>
+            <h3 class="icon-box__title">ICOONE Laser</h3>
+            <p class="icon-box__text">Endermologia</p>
+          </li>
+          <li class="icon-box" data-reveal>
+            <span class="icon-box__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="3"/></svg>
+            </span>
+            <h3 class="icon-box__title">Platforma laserowa ZYE</h3>
+            <p class="icon-box__text">Laser aleksandrytowy i IPL</p>
+          </li>
         </ul>
       </div>
     </section>
@@ -462,14 +541,28 @@
       </div>
     </section>
 
-    <!-- ============ 11. INSTAGRAM ============ -->
+    <!-- ============ 11. ZOBACZ W PRAKTYCE — video-teaser + Instagram ============ -->
     <section class="insta" id="instagram" aria-labelledby="insta-title">
       <div class="container">
-        <header class="section-head" data-reveal>
-          <p class="eyebrow">Obserwuj nas</p>
+        <header class="section-head section-head--center" data-reveal>
+          <p class="eyebrow eyebrow--center">Zobacz w praktyce</p>
           <h2 id="insta-title" class="section-title">Skin Solutions w&nbsp;praktyce</h2>
           <p class="section-lead"><a class="insta__handle" href="https://www.instagram.com/skinsolutions.clinic/" target="_blank" rel="noopener">@skinsolutions.clinic</a></p>
         </header>
+
+        <a class="video-teaser" href="https://www.instagram.com/skinsolutions.clinic/" target="_blank" rel="noopener" data-reveal aria-label="Zobacz wnętrze kliniki i zabiegi na Instagramie">
+          <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1400&q=80&auto=format&fit=crop"
+               srcset="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1400&q=80&auto=format&fit=crop 1400w"
+               sizes="(min-width: 900px) 1100px, 100vw" width="1400" height="700"
+               alt="Jasne wnętrze gabinetu kliniki Skin Solutions — zdjęcie poglądowe" loading="lazy" decoding="async" />
+          <span class="video-teaser__overlay" aria-hidden="true"></span>
+          <span class="video-teaser__content" aria-hidden="true">
+            <span class="video-teaser__play">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+            </span>
+            <span class="video-teaser__label">Zajrzyj do naszej kliniki</span>
+          </span>
+        </a>
 
         <div class="insta__grid">
           <a class="insta__tile" href="https://www.instagram.com/skinsolutions.clinic/" target="_blank" rel="noopener" data-reveal>
